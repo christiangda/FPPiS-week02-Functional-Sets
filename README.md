@@ -36,17 +36,17 @@ set of negative integers by the characteristic `function (x: Int) => x < 0`
 Therefore, we choose to represent a set by its characterisitc function and
 define a type alias for this representation:
 
-```scala
+```scala
 type Set = Int => Boolean
-```
+```
 
 Using this representation, we define a function that tests for the presence of
 a value in a set:
 
-
-```scala
+
+```scala
 def contains(s: Set, elem: Int): Boolean = s(elem)
-```
+```
 
 ### 2.1 Basic Functions on Sets
 
