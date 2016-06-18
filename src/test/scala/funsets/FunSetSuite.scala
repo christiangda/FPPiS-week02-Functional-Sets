@@ -165,9 +165,8 @@ class FunSetSuite extends FunSuite {
     new TestSets {
       val s = diff(s1, s2)
       assert(contains(s, 1), "Diff of {1} and {2} contains {1}")
-      assert(contains(s, 2), "Diff of {1} and {2} contains {2}")
 
-      val ss = diff(s3, s4)
+      val ss = diff(s4, s3)
       assert(contains(ss, 1), "Diff of {3} and {1, 2, 3, 4, 5} contains {1}")
       assert(contains(ss, 2), "Diff of {3} and {1, 2, 3, 4, 5} contains {2}")
       assert(contains(ss, 4), "Diff of {3} and {1, 2, 3, 4, 5} contains {4}")
@@ -176,27 +175,28 @@ class FunSetSuite extends FunSuite {
       val sss = diff(s5, s6)
       assert(contains(sss, 3), "Diff of {3, 5, 6, 7, 8} and {6, 8, 9, 1000, 2000} contains {3}")
       assert(contains(sss, 5), "Diff of {3, 5, 6, 7, 8} and {6, 8, 9, 1000, 2000} contains {5}")
-      assert(contains(sss, 9), "Diff of {3, 5, 6, 7, 8} and {6, 8, 9, 1000, 2000} contains {9}")
-      assert(contains(sss, 2000), "Diff of {3, 5, 6, 7, 8} and {6, 8, 9, 1000, 2000} contains {2000}")
+      assert(contains(sss, 7), "Diff of {3, 5, 6, 7, 8} and {6, 8, 9, 1000, 2000} contains {7}")
     }
   }
 
   test("diff not contains any elements of each set") {
     new TestSets {
       val s = diff(s1, s2)
-      assert(!contains(s, 3), "Diff of {1} and {2} not contains {3}")
-      assert(!contains(s, 4), "Diff of {1} and {2} not contains {5}")
+      assert(!contains(s, 2), "Diff of {1} and {2} not contains {2}")
 
       val ss = diff(s3, s4)
+      assert(!contains(ss, 1), "Diff of {3} and {1, 2, 3, 4, 5} not contains {1}")
+      assert(!contains(ss, 2), "Diff of {3} and {1, 2, 3, 4, 5} not contains {2}")
       assert(!contains(ss, 3), "Diff of {3} and {1, 2, 3, 4, 5} not contains {3}")
-      assert(!contains(ss, 7), "Diff of {3} and {1, 2, 3, 4, 5} not contains {7}")
-      assert(!contains(ss, 8), "Diff of {3} and {1, 2, 3, 4, 5} not contains {8}")
-      assert(!contains(ss, 9), "Diff of {3} and {1, 2, 3, 4, 5} not contains {9}")
+      assert(!contains(ss, 4), "Diff of {3} and {1, 2, 3, 4, 5} not contains {4}")
+      assert(!contains(ss, 5), "Diff of {3} and {1, 2, 3, 4, 5} not contains {5}")
 
       val sss = diff(s5, s6)
       assert(!contains(sss, 6), "Diff of {3, 5, 6, 7, 8} and {6, 8, 9, 1000, 2000} not contains {6}")
       assert(!contains(sss, 8), "Diff of {3, 5, 6, 7, 8} and {6, 8, 9, 1000, 2000} not contains {8}")
-      assert(!contains(sss, 3000), "Diff of {3, 5, 6, 7, 8} and {6, 8, 9, 1000, 2000} not contains {3000}")
+      assert(!contains(sss, 9), "Diff of {3, 5, 6, 7, 8} and {6, 8, 9, 1000, 2000} not contains {9}")
+      assert(!contains(sss, 1000), "Diff of {3, 5, 6, 7, 8} and {6, 8, 9, 1000, 2000} not contains {1000}")
+      assert(!contains(sss, 2000), "Diff of {3, 5, 6, 7, 8} and {6, 8, 9, 1000, 2000} not contains {2000}")
     }
   }
 }
