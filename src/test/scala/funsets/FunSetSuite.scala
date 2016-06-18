@@ -75,6 +75,10 @@ class FunSetSuite extends FunSuite {
     val s1 = singletonSet(1)
     val s2 = singletonSet(2)
     val s3 = singletonSet(3)
+
+    val s4 = Set(1, 2, 3, 4, 5)
+    val s5 = Set(3, 5, 6, 7, 8)
+    val s6 = Set(6, 8, 9, 1000, 2000)
   }
 
   /**
@@ -99,13 +103,100 @@ class FunSetSuite extends FunSuite {
     }
   }
 
-  test("union contains all elements of each set") {
+  test("singletonSet(4) contains 4") {
     new TestSets {
-      val s = union(s1, s2)
-      assert(contains(s, 1), "Union 1")
-      assert(contains(s, 2), "Union 2")
-      assert(!contains(s, 3), "Union 3")
+      assert(contains(s4, 4), "Singleton Fails in contains(s4, 4)")
     }
   }
 
+  /**
+   * Test: union
+   */
+  test("union contains all elements of each set") {
+    new TestSets {
+      val s = union(s1, s2)
+      assert(contains(s, 1), "Union of {1} and {2} contains {1}")
+      assert(contains(s, 2), "Union of {1} and {2} contains {2}")
+      assert(!contains(s, 3), "Union of {1} and {2} not contains {3}")
+
+      val ss = union(s3, s4)
+      assert(contains(ss, 3), "Union of {3} and {1, 2, 3, 4, 5} contains {3}")
+      assert(contains(ss, 4), "Union of {3} and {1, 2, 3, 4, 5} contains {4}")
+      assert(contains(ss, 1), "Union of {3} and {1, 2, 3, 4, 5} contains {1}")
+    }
+  }
+
+  /**
+   * Test: intersect
+   */
+  test("intersect contains all elements of each set") {
+    new TestSets {
+      val ss = intersect(s3, s4)
+      assert(contains(ss, 3), "Intersect of {3} and {1, 2, 3, 4, 5} contains {3}")
+
+      val sss = intersect(s5, s6)
+      assert(contains(sss, 6), "Intersect of {3, 5, 6, 7, 8} and {6, 8, 9, 1000, 2000} contains {6}")
+      assert(contains(sss, 8), "Intersect of {3, 5, 6, 7, 8} and {6, 8, 9, 1000, 2000} contains {8}")
+    }
+  }
+
+  test("intersect not contains any elements of each set") {
+    new TestSets {
+      val s = intersect(s1, s2)
+      assert(!contains(s, 1), "Intersect of {1} and {2} not contains {1}")
+      assert(!contains(s, 2), "Intersect of {1} and {2} not contains {2}")
+
+      val ss = intersect(s3, s4)
+      assert(!contains(ss, 2), "Intersect of {3} and {1, 2, 3, 4, 5} not contains {2}")
+      assert(!contains(ss, 4), "Intersect of {3} and {1, 2, 3, 4, 5} not contains {4}")
+
+      val sss = intersect(s5, s6)
+      assert(!contains(sss, 3), "Intersect of {3, 5, 6, 7, 8} and {6, 8, 9, 1000, 2000} not contains {3}")
+      assert(!contains(sss, 4), "Intersect of {3, 5, 6, 7, 8} and {6, 8, 9, 1000, 2000} not contains {4}")
+      assert(!contains(sss, 5), "Intersect of {3, 5, 6, 7, 8} and {6, 8, 9, 1000, 2000} not contains {5}")
+      assert(!contains(sss, 7), "Intersect of {3, 5, 6, 7, 8} and {6, 8, 9, 1000, 2000} not contains {7}")
+    }
+  }
+
+  /**
+   * Test: diff
+   */
+  test("diff contains all elements of each set") {
+    new TestSets {
+      val s = diff(s1, s2)
+      assert(contains(s, 1), "Diff of {1} and {2} contains {1}")
+      assert(contains(s, 2), "Diff of {1} and {2} contains {2}")
+
+      val ss = diff(s3, s4)
+      assert(contains(ss, 1), "Diff of {3} and {1, 2, 3, 4, 5} contains {1}")
+      assert(contains(ss, 2), "Diff of {3} and {1, 2, 3, 4, 5} contains {2}")
+      assert(contains(ss, 4), "Diff of {3} and {1, 2, 3, 4, 5} contains {4}")
+      assert(contains(ss, 5), "Diff of {3} and {1, 2, 3, 4, 5} contains {5}")
+
+      val sss = diff(s5, s6)
+      assert(contains(sss, 3), "Diff of {3, 5, 6, 7, 8} and {6, 8, 9, 1000, 2000} contains {3}")
+      assert(contains(sss, 5), "Diff of {3, 5, 6, 7, 8} and {6, 8, 9, 1000, 2000} contains {5}")
+      assert(contains(sss, 9), "Diff of {3, 5, 6, 7, 8} and {6, 8, 9, 1000, 2000} contains {9}")
+      assert(contains(sss, 2000), "Diff of {3, 5, 6, 7, 8} and {6, 8, 9, 1000, 2000} contains {2000}")
+    }
+  }
+
+  test("diff not contains any elements of each set") {
+    new TestSets {
+      val s = diff(s1, s2)
+      assert(!contains(s, 3), "Diff of {1} and {2} not contains {3}")
+      assert(!contains(s, 4), "Diff of {1} and {2} not contains {5}")
+
+      val ss = diff(s3, s4)
+      assert(!contains(ss, 3), "Diff of {3} and {1, 2, 3, 4, 5} not contains {3}")
+      assert(!contains(ss, 7), "Diff of {3} and {1, 2, 3, 4, 5} not contains {7}")
+      assert(!contains(ss, 8), "Diff of {3} and {1, 2, 3, 4, 5} not contains {8}")
+      assert(!contains(ss, 9), "Diff of {3} and {1, 2, 3, 4, 5} not contains {9}")
+
+      val sss = diff(s5, s6)
+      assert(!contains(sss, 6), "Diff of {3, 5, 6, 7, 8} and {6, 8, 9, 1000, 2000} not contains {6}")
+      assert(!contains(sss, 8), "Diff of {3, 5, 6, 7, 8} and {6, 8, 9, 1000, 2000} not contains {8}")
+      assert(!contains(sss, 3000), "Diff of {3, 5, 6, 7, 8} and {6, 8, 9, 1000, 2000} not contains {3000}")
+    }
+  }
 }
