@@ -246,4 +246,17 @@ class FunSetSuite extends FunSuite {
       assert(forall(s8, { e: Int => e != 0 }), "Forall valid if {-3, -2, -1, 1, 2, 3} not contains zero (0)")
     }
   }
+
+  /**
+   * Test: exists
+   */
+  test("exists test suit") {
+    new TestSets {
+      assert(exists(s5, { e: Int => e > 0 }), "Exist valid if {3, 5, 6, 7, 8} contains positive numbers")
+      assert(!exists(s5, { e: Int => e < 0 }), "Exist valid if {3, 5, 6, 7, 8} contains positive numbers")
+
+      assert(exists(s5, s3), "Exist valid if {3, 5, 6, 7, 8} contains {3}")
+      assert(exists(s5, s6), "Exist valid if {3, 5, 6, 7, 8} contains some of {6, 8, 9, 1000, 2000}")
+    }
+  }
 }
