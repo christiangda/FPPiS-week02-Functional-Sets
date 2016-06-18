@@ -1,4 +1,4 @@
-# FPPiS-week02-Functional-Sets
+# FPPiS-week02-Functional-Sets [![Build Status](https://travis-ci.org/christiangda/FPPiS-week02-Functional-Sets.png)](https://travis-ci.org/christiangda/FPPiS-week02-Functional-Sets)
 
 Programming Assignment: Functional Sets
 
