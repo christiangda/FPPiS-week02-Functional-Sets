@@ -199,4 +199,37 @@ class FunSetSuite extends FunSuite {
       assert(!contains(sss, 2000), "Diff of {3, 5, 6, 7, 8} and {6, 8, 9, 1000, 2000} not contains {2000}")
     }
   }
+
+  /**
+   * Test: filter
+   */
+  test("filter contains all elements of ecah set") {
+    new TestSets {
+      val sss = diff(s5, s6)
+      assert(contains(sss, 3), "Filter of {3, 5, 6, 7, 8} and {6, 8, 9, 1000, 2000} not contains {3}")
+      assert(contains(sss, 5), "Filter of {3, 5, 6, 7, 8} and {6, 8, 9, 1000, 2000} not contains {5}")
+      assert(contains(sss, 7), "Filter of {3, 5, 6, 7, 8} and {6, 8, 9, 1000, 2000} not contains {7}")
+    }
+  }
+
+  test("filter not contains any elements of ecah set") {
+    new TestSets {
+      val s = filter(s1, s2)
+      assert(!contains(s, 1), "Filter of {1} and {2} contains {1}")
+      assert(!contains(s, 2), "Filter of {1} and {2} contains {2}")
+
+      val ss = filter(s3, s4)
+      assert(!contains(ss, 1), "Filter of {3} and {1, 2, 3, 4, 5} not contains {1}")
+      assert(!contains(ss, 2), "Filter of {3} and {1, 2, 3, 4, 5} not contains {2}")
+      assert(!contains(ss, 4), "Filter of {3} and {1, 2, 3, 4, 5} not contains {4}")
+      assert(!contains(ss, 5), "Filter of {3} and {1, 2, 3, 4, 5} not contains {5}")
+
+      val sss = diff(s5, s6)
+      assert(!contains(sss, 6), "Filter of {3, 5, 6, 7, 8} and {6, 8, 9, 1000, 2000} not contains {6}")
+      assert(!contains(sss, 8), "Filter of {3, 5, 6, 7, 8} and {6, 8, 9, 1000, 2000} not contains {8}")
+      assert(!contains(sss, 9), "Filter of {3, 5, 6, 7, 8} and {6, 8, 9, 1000, 2000} not contains {9}")
+      assert(!contains(sss, 1000), "Filter of {3, 5, 6, 7, 8} and {6, 8, 9, 1000, 2000} not contains {1000}")
+      assert(!contains(sss, 2000), "Filter of {3, 5, 6, 7, 8} and {6, 8, 9, 1000, 2000} not contains {2000}")
+    }
+  }
 }
