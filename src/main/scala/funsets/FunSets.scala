@@ -52,9 +52,8 @@ object FunSets {
    * Returns whether all bounded integers within `s` satisfy `p`.
    */
   def forall(s: Set, p: Int => Boolean): Boolean = {
-    val filteredSet = filter(s, p)
     def iter(a: Int): Boolean = {
-      if (contains(s, a) && !contains(filteredSet, a)) false
+      if (s(a) && !p(a)) false
       else if (a > bound) true
       else iter(a + 1)
     }
@@ -65,19 +64,25 @@ object FunSets {
    * Returns whether there exists a bounded integer within `s`
    * that satisfies `p`.
    */
-  def exists(s: Set, p: Int => Boolean): Boolean = forall(s, union(s, p))
+  def exists(s: Set, p: Int => Boolean): Boolean = {
+    def iter(a: Int): Boolean = {
+      if (s(a) && p(a)) true
+      else if (a > bound) false
+      else iter(a + 1)
+    }
+    iter(-bound)
+  }
 
   /**
    * Returns a set transformed by applying `f` to each element of `s`.
    */
   def map(s: Set, f: Int => Int): Set = {
-    def iter(a: Int, buildingSet: Set): Set = {
-      if (a > bound) buildingSet
-      else if (contains(s, a))
-        iter(a + 1, union(buildingSet, singletonSet(f(a))))
-      else iter(a + 1, buildingSet)
+    def iterate(a: Int): Set = {
+      if (a > bound) ((y: Int) => false)
+      else if (s(a)) union(singletonSet(f(a)), iterate(a + 1))
+      else iterate(a + 1)
     }
-    iter(-bound, diff(s, s))
+    iterate(-bound)
   }
 
   /**
