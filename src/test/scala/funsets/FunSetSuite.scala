@@ -2,7 +2,6 @@ package funsets
 
 import org.scalatest.FunSuite
 
-
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 
@@ -29,10 +28,10 @@ class FunSetSuite extends FunSuite {
   /**
    * Tests are written using the "test" operator and the "assert" method.
    */
-  // test("string take") {
-  //   val message = "hello, world"
-  //   assert(message.take(5) == "hello")
-  // }
+  test("string take") {
+    val message = "hello, world"
+    assert(message.take(5) == "hello")
+  }
 
   /**
    * For ScalaTest tests, there exists a special equality operator "===" that
@@ -43,10 +42,9 @@ class FunSetSuite extends FunSuite {
    * Try it out! Change the values so that the assertion fails, and look at the
    * error message.
    */
-  // test("adding ints") {
-  //   assert(1 + 2 === 3)
-  // }
-
+  test("adding ints") {
+    assert(1 + 2 === 3)
+  }
 
   import FunSets._
 
@@ -109,6 +107,5 @@ class FunSetSuite extends FunSuite {
       assert(!contains(s, 3), "Union 3")
     }
   }
-
 
 }
