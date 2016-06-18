@@ -79,6 +79,9 @@ class FunSetSuite extends FunSuite {
     val s4 = Set(1, 2, 3, 4, 5)
     val s5 = Set(3, 5, 6, 7, 8)
     val s6 = Set(6, 8, 9, 1000, 2000)
+
+    val s7 = Set(-1, -2, -3, -4, -5)
+    val s8 = Set(-3, -2, -1, 1, 2, 3)
   }
 
   /**
@@ -230,6 +233,17 @@ class FunSetSuite extends FunSuite {
       assert(!contains(sss, 9), "Filter of {3, 5, 6, 7, 8} and {6, 8, 9, 1000, 2000} not contains {9}")
       assert(!contains(sss, 1000), "Filter of {3, 5, 6, 7, 8} and {6, 8, 9, 1000, 2000} not contains {1000}")
       assert(!contains(sss, 2000), "Filter of {3, 5, 6, 7, 8} and {6, 8, 9, 1000, 2000} not contains {2000}")
+    }
+  }
+
+  /**
+   * Test: forall
+   */
+  test("forall test suit") {
+    new TestSets {
+      assert(forall(s5, { e: Int => e > 0 }), "Forall valid if {3, 5, 6, 7, 8} are positive numbers")
+      assert(forall(s7, { e: Int => e < 0 }), "Forall valid if {-1, -2, -3, -4, -5} are negative numbers")
+      assert(forall(s8, { e: Int => e != 0 }), "Forall valid if {-3, -2, -1, 1, 2, 3} not contains zero (0)")
     }
   }
 }
