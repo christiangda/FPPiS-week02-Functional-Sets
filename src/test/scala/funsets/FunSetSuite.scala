@@ -82,6 +82,10 @@ class FunSetSuite extends FunSuite {
 
     val s7 = Set(-1, -2, -3, -4, -5)
     val s8 = Set(-3, -2, -1, 1, 2, 3)
+
+    val s9 = Set(1, 2, 3, 4, 5) //
+    val s10 = Set(2, 4, 6, 8, 10) // s9*2
+    val s11 = Set(1, 4, 9, 16, 25) // s9*s9
   }
 
   /**
@@ -257,6 +261,19 @@ class FunSetSuite extends FunSuite {
 
       assert(exists(s5, s3), "Exist valid if {3, 5, 6, 7, 8} contains {3}")
       assert(exists(s5, s6), "Exist valid if {3, 5, 6, 7, 8} contains some of {6, 8, 9, 1000, 2000}")
+    }
+  }
+
+  /**
+   * Test: map
+   */
+  test("map test suit") {
+    new TestSets {
+      val m1 = map(s9, { a: Int => a * 2 })
+      assert(exists(s9, s10), "Map valid if {1, 2, 3, 4, 5} exists in {2, 4, 6, 8, 10}")
+      
+      val m2 = map(s9, {a: Int => a * a})
+      assert(exists(s9, s11), "Map valid if {1, 2, 3, 4, 5} exists in {1, 4, 9, 16, 25}")
     }
   }
 }
